@@ -6,10 +6,10 @@ set -euo pipefail
 # ----------------------------
 PROJECT_ID="${PROJECT_ID:-tonal-works-470115-q2}"
 ZONE="${ZONE:-us-central1-a}"
-INSTANCE_NAME="${INSTANCE_NAME:-dl-dpd-vm}"
+INSTANCE_NAME="${INSTANCE_NAME:-sionna-dl-6g-vm}"
 SSH_USER="${SSH_USER:-srikanth_pagadarai}"
 BOOT_DISK_SIZE_GB="${BOOT_DISK_SIZE_GB:-50}"
-BUCKET_NAME="${BUCKET_NAME:-dl-dpd}"    # set to "" to skip bucket ensure
+BUCKET_NAME="${BUCKET_NAME:-sionna-dl-6g}"    # set to "" to skip bucket ensure
 SCOPES="${SCOPES:-https://www.googleapis.com/auth/cloud-platform}"
 
 # Mode-specific defaults
