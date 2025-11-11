@@ -18,4 +18,4 @@ login to VM:<br>
 
 save artifacts to bucket:<br>
 `$ RUN_ID=$(date +%F-%H%M%S)`<br>
-`$ gsutil cp *.png gs://dl-dpd/outputs/$RUN_ID/`
+`$ gsutil cp *.png gs://sionna-dl-6g/outputs/$RUN_ID/`
