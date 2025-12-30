@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Load .env if present
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [[ -f "${SCRIPT_DIR}/.env" ]]; then
+  source "${SCRIPT_DIR}/.env"
+fi
+
 # ----------------------------
 # Defaults (override via flags or env vars)
 # ----------------------------
-PROJECT_ID="${PROJECT_ID:-tonal-works-470115-q2}"
+PROJECT_ID="${PROJECT_ID:-}"
 ZONE="${ZONE:-us-central1-a}"
-INSTANCE_NAME="${INSTANCE_NAME:-sionna-dl-6g-vm}"
-SSH_USER="${SSH_USER:-srikanth_pagadarai}"
+INSTANCE_NAME="${INSTANCE_NAME:-}"
+SSH_USER="${SSH_USER:-$(whoami)}"
 BOOT_DISK_SIZE_GB="${BOOT_DISK_SIZE_GB:-50}"
-BUCKET_NAME="${BUCKET_NAME:-sionna-dl-6g}"    # set to "" to skip bucket ensure
+BUCKET_NAME="${BUCKET_NAME:-}"
 SCOPES="${SCOPES:-https://www.googleapis.com/auth/cloud-platform}"
 
 # Mode-specific defaults
@@ -123,6 +129,14 @@ done
 # ----------------------------
 # Sanity checks
 # ----------------------------
+# Required parameters check
+if [[ -z "${PROJECT_ID}" ]]; then
+  echo "ERROR: --project or PROJECT_ID env var is required"; exit 1
+fi
+if [[ -z "${INSTANCE_NAME}" ]]; then
+  echo "ERROR: --name or INSTANCE_NAME env var is required"; exit 1
+fi
+
 if [[ "${MODE}" != "cpu" && "${MODE}" != "gpu" ]]; then
   echo "ERROR: --mode must be 'cpu' or 'gpu'"; exit 1
 fi
